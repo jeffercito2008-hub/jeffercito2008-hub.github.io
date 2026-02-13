@@ -3,27 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>Valentine's Day</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@300&display=swap" rel="stylesheet">
+    <title>Valentine's Day Special</title>
     <style>
-        body { font-family: Arial, sans-serif; background-color: pink; text-align: center; }
-        h1 { color: red; }
-        p { font-size: 20px; }
-        .animation { animation: bounce 2s; }
-        @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-                          40% { transform: translateY(-30px); }
-                          60% { transform: translateY(-15px); }}
+        body {
+            background: linear-gradient(to right, #FFB6C1, #FF69B4);
+            font-family: 'Poppins', sans-serif;
+        }
+        .container {
+            text-align: center;
+            padding: 50px;
+        }
+        .button {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+            font-size: 20px;
+            font-family: 'Dancing Script', cursive;
+            transition: transform 0.2s;
+        }
+        .button:hover {
+            transform: scale(1.1);
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 24px;
+            display: none;
+        }
+        /* Add original CSS animations here */
+        @keyframes float { /* Add float animation */ }
+        @keyframes fadeIn { /* Add fadeIn animation */ }
+        @keyframes heartbeat { /* Add heartbeat animation */ }
+        @keyframes shake { /* Add shake animation */ }
+        @keyframes flowerFall { /* Add flower fall animation */ }
+        @keyframes cornerFloat { /* Add corner float animation */ }
+        @keyframes teddyKiss { /* Add teddy kiss animation */ }
+        /* Decorative elements styles */
     </style>
 </head>
 <body>
-    <h1 class="animation">Happy Valentine's Day!</h1>
-    <p>Join us in celebrating love and friendship.</p>
-    <form action="https://formspree.io/f/mkvojzqw" method="POST">
-        <label for="name">Name:</label><br>
-        <input type="text" id="name" name="name" required><br>
-        <label for="email">Email:</label><br>
-        <input type="email" id="email" name="email" required><br><br>
-        <input type="submit" value="Send">
-    </form>
+    <div class="container">
+        <h1>Happy Valentine's Day!</h1>
+        <button class="button" id="yesButton" onclick="sayYes()">YES</button>
+        <button class="button" id="noButton" onclick="sayNo()">NO</button>
+        <div class="result" id="result"></div>
+        <div class="hearts"></div>
+    </div>
+    <script>
+        function sayYes() {
+            document.getElementById('result').innerHTML = 'You said YES! ❤️';
+            document.getElementById('result').style.display = 'block';
+            // Integrate Formspree email form here
+            // Sending data to Formspree
+        }
+
+        function sayNo() {
+            document.getElementById('result').innerHTML = 'You said NO! 😢';
+            document.getElementById('result').style.display = 'block';
+        }
+
+        function createHearts() {
+            // Logic to create floating hearts
+        }
+
+        function createConfetti() {
+            // Logic for flower confetti effects
+        }
+
+        function createCornerHearts() {
+            // Logic for corner hearts animations
+        }
+    </script>
 </body>
 </html>
