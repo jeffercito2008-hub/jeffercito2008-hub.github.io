@@ -3,62 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Valentine's Day Celebration</title>
+    <link rel="stylesheet" href="styles.css">
+    <title>Valentine's Day</title>
     <style>
-        body {
-            background-color: pink;
-            font-family: 'Arial', sans-serif;
-            text-align: center;
-        }
-        h1 {
-            color: red;
-            font-size: 50px;
-            animation: fadeIn 1s;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        #celebration {
-            display: none;
-            animation: zoomIn 1s;
-        }
-        @keyframes zoomIn {
-            from { transform: scale(0); }
-            to { transform: scale(1); }
-        }
+        body { font-family: Arial, sans-serif; background-color: pink; text-align: center; }
+        h1 { color: red; }
+        p { font-size: 20px; }
+        .animation { animation: bounce 2s; }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+                          40% { transform: translateY(-30px); }
+                          60% { transform: translateY(-15px); }}
     </style>
 </head>
 <body>
-    <h1>Happy Valentine's Day!</h1>
-    <form id="valentineForm" action="https://formspree.io/f/mkvojzqw" method="POST">
-        <input type="email" name="email" placeholder="Your Email" required>
-        <button type="submit" onclick="sayYes(event)">Say Yes!</button>
+    <h1 class="animation">Happy Valentine's Day!</h1>
+    <p>Join us in celebrating love and friendship.</p>
+    <form action="https://formspree.io/f/mkvojzqw" method="POST">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" required><br>
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+        <input type="submit" value="Send">
     </form>
-    <div id="celebration">
-        <h2>🎉 Celebration 🎊</h2>
-    </div>
-    <script>
-        function sayYes(event) {
-            event.preventDefault(); // Prevent the form from submitting normally
-            const form = document.getElementById('valentineForm');
-            // Send the form data using Fetch API
-            fetch(form.action, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: new URLSearchParams(new FormData(form)).toString()
-            }).then(response => {
-                // Check for a successful response
-                if (response.ok) {
-                    document.getElementById('celebration').style.display = 'block';
-                } else {
-                    alert('There was an error, please try again.');
-                }
-            });
-        }
-    </script>
 </body>
 </html>
