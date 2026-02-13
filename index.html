@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine?</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@400;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+        }
+        
+        .container {
+            text-align: center;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(255, 107, 107, 0.3);
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+        }
+        
+        .hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        .heart {
+            position: absolute;
+            color: rgba(255, 107, 107, 0.3);
+            font-size: 20px;
+            animation: float 6s ease-in infinite;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+        
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: #e74c3c;
+            margin-bottom: 50px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            min-height: 150px;
+        }
+        
+        button {
+            border: none;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border-radius: 50px;
+        }
+        
+        #yesBtn {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a5a);
+            color: white;
+            padding: 20px 50px;
+            font-size: 1.5rem;
+            box-shadow: 0 10px 30px rgba(238, 90, 90, 0.4);
+        }
+        
+        #yesBtn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(238, 90, 90, 0.5);
+        }
+        
+        #noBtn {
+            background: #95a5a6;
+            color: white;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 20px rgba(149, 165, 166, 0.3);
+        }
+        
+        #noBtn:hover {
+            background: #7f8c8d;
+            transform: translateY(-2px);
+        }
+        
+        .result {
+            display: none;
+            animation: fadeIn 1s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        .result h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: #e74c3c;
+            margin-bottom: 20px;
+        }
+        
+        .result p {
+            font-size: 1.3rem;
+            color: #555;
+            line-height: 1.8;
+            font-style: italic;
+        }
+        
+        .big-heart {
+            font-size: 5rem;
+            color: #ff6b6b;
+            animation: heartbeat 1s ease-in-out infinite;
+            margin-bottom: 20px;
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .teddy-bears {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 4rem;
+            z-index: 10;
+            animation: teddyKiss 2s ease-in-out infinite;
+            display: none;
+        }
+        
+        .teddy-bears.show {
+            display: block;
+        }
+        
+        @keyframes teddyKiss {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1) translateY(-5px); }
+        }
+        
+        .result-teddies {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: teddyKiss 2s ease-in-out infinite;
+        }
+        
+        .corner-hearts {
+            position: absolute;
+            font-size: 1.5rem;
+            opacity: 0;
+            animation: cornerFloat 3s ease-in-out infinite;
+        }
+        
+        .corner-hearts.show {
+            opacity: 0.7;
+        }
+        
+        @keyframes cornerFloat {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-10px) scale(1.1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts" id="hearts"></div>
+    
+    <div class="container">
+        <div id="questionSection">
+            <h1>Will you be my Valentine?</h1>
+            <div class="buttons">
+                <button id="yesBtn" onclick="sayYes()">YES</button>
+                <button id="noBtn" onclick="sayNo()">NO</button>
+            </div>
+        </div>
+        
+        <div id="resultSection" class="result">
+            <div class="result-teddies">🧸💕🧸</div>
+            <h2>You Said YES!</h2>
+            <p>I love you so much, your soul is blessed and perfect, your beauty transcends reality</p>
+        </div>
+    </div>
+    
+    <script>
+        let noClickCount = 0;
+        const noMessages = [
+            "Are you sure?",
+            "Won't you let me love you?",
+            "Can't I adore you?",
+            "Just say yes",
+            "Please ma'am?"
+        ];
+        
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        
+        function sayNo() {
+            noClickCount++;
+            
+            // Cycle through messages
+            const messageIndex = (noClickCount - 1) % noMessages.length;
+            noBtn.textContent = noMessages[messageIndex];
+            
+            // Make YES button bigger
+            const currentScale = 1 + (noClickCount * 0.3);
+            const currentPadding = 20 + (noClickCount * 10);
+            const currentFontSize = 1.5 + (noClickCount * 0.3);
+            
+            yesBtn.style.transform = `scale(${currentScale})`;
+            yesBtn.style.padding = `${currentPadding}px ${currentPadding * 2.5}px`;
+            yesBtn.style.fontSize = `${currentFontSize}rem`;
+            
+            // Make NO button smaller
+            const noScale = Math.max(0.5, 1 - (noClickCount * 0.1));
+            noBtn.style.transform = `scale(${noScale})`;
+            
+            // Add shake effect to NO button
+            noBtn.style.animation = 'none';
+            setTimeout(() => {
+                noBtn.style.animation = 'shake 0.5s ease';
+            }, 10);
+        }
+        
+        function sayYes() {
+            document.getElementById('questionSection').classList.add('hidden');
+            document.getElementById('resultSection').style.display = 'block';
+            createConfetti();
+            createCornerHearts();
+        }
+        
+        // Create floating hearts in background
+        function createHearts() {
+            const heartsContainer = document.getElementById('hearts');
+            const heartSymbols = ['❤️', '💕', '💖', '💗', '💓'];
+            
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.textContent = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                heartsContainer.appendChild(heart);
+            }
+        }
+        
+        // Create confetti effect
+        function createConfetti() {
+            const flowers = ['🌹', '🌸', '🌺', '🌻', '🌷', '💐', '🌼', '🪻'];
+            
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const flower = document.createElement('div');
+                    flower.textContent = flowers[Math.floor(Math.random() * flowers.length)];
+                    flower.style.position = 'fixed';
+                    flower.style.left = Math.random() * 100 + '%';
+                    flower.style.top = '-50px';
+                    flower.style.fontSize = (Math.random() * 20 + 20) + 'px';
+                    flower.style.pointerEvents = 'none';
+                    flower.style.zIndex = '100';
+                    flower.style.animation = `flowerFall ${Math.random() * 2 + 3}s linear forwards`;
+                    document.body.appendChild(flower);
+                    
+                    setTimeout(() => flower.remove(), 5000);
+                }, i * 80);
+            }
+        }
+        
+        // Create corner hearts
+        function createCornerHearts() {
+            const container = document.querySelector('.container');
+            const heartSymbols = ['❤️', '💕', '💖'];
+            const positions = [
+                { top: '10px', left: '10px' },
+                { top: '10px', right: '10px' },
+                { bottom: '10px', left: '10px' },
+                { bottom: '60px', left: '50px' },
+                { top: '60px', right: '50px' },
+                { bottom: '10px', right: '80px' }
+            ];
+            
+            positions.forEach((pos, index) => {
+                const heart = document.createElement('div');
+                heart.className = 'corner-hearts show';
+                heart.textContent = heartSymbols[index % heartSymbols.length];
+                heart.style.top = pos.top;
+                heart.style.left = pos.left;
+                heart.style.right = pos.right;
+                heart.style.bottom = pos.bottom;
+                heart.style.animationDelay = (index * 0.3) + 's';
+                container.appendChild(heart);
+            });
+        }
+        
+        // Add shake animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                25% { transform: translateX(-5px); }
+                75% { transform: translateX(5px); }
+            }
+            @keyframes flowerFall {
+                0% {
+                    transform: translateY(0) rotate(0deg);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translateY(100vh) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        createHearts();
+    </script>
+</body>
+</html>
